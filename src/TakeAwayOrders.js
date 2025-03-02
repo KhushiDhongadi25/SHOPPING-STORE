@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./TakeawayOrders.css";
 
 const TakeawayOrders = () => {
   const [name, setName] = useState("");
@@ -14,18 +15,20 @@ const TakeawayOrders = () => {
   const [fetchOrderError, setFetchOrderError] = useState("");
 
   const products = [
-    { id: 1, name: "Sony FX30", price: 45500 },
-    { id: 2, name: "Sony FR7", price: 175000 },
-    { id: 3, name: "Canon EOS 90D", price: 289000 },
-    { id: 4, name: "Nikon D6", price: 155700 },
-    { id: 5, name: "Panasonic Lumix G10", price: 75000 },
-    { id: 6, name: "Canon EOS 250D", price: 210000 },
-    { id: 7, name: "Sony Alpha 7", price: 199999 },
-    { id: 8, name: "Nikon D750", price: 100000 },
-    { id: 9, name: "Panasonic Lumix GH5", price: 45000 },
-    { id: 10, name: "Canon EOS 5D Mark", price: 500000 },
+    { id: 1, name: "MAC Lipstick", price: 1999 },
+    { id: 2, name: "Maybelline Foundation", price: 749 },
+    { id: 3, name: "Huda Eyeshadow", price: 5499 },
+    { id: 4, name: "Lakmé Compact", price: 899 },
+    { id: 5, name: "Bobbi Eyeliner", price: 3200 },
+    { id: 6, name: "Estee Foundation", price: 4000 },
+    { id: 7, name: "L'Oréal Mascara", price: 650 },
+    { id: 8, name: "Clinique Moisturizer", price: 3800 },
+    { id: 9, name: "Dior Lip Glow", price: 3900 },
+    { id: 10, name: "Charlotte Powder", price: 4500 },
   ];
-
+  
+  
+  
   const placeOrder = () => {
     if (quantity <= 0 || productNumber <= 0 || orderId <= 0) {
       setPlaceOrderError("Invalid input: Ensure product number, quantity, and order ID are greater than 0.");
@@ -56,13 +59,13 @@ const TakeawayOrders = () => {
   };
 
   return (
-    <div className="p-4 max-w-4xl mx-auto border rounded-lg shadow-md flex">
+    <div className="container">
       {/* Left Section - Available Products */}
-      <div className="w-1/3 p-4 border-r">
-        <h2 className="text-xl font-bold mb-4">Available Products</h2>
-        <ul className="border rounded p-2 mb-4">
+      <div className="left-section">
+        <h2>Available Products</h2>
+        <ul>
           {products.map((product) => (
-            <li key={product.id} className="border-b p-2">
+            <li key={product.id}>
               {`${product.id}. ${product.name} - Rs. ${product.price}`}
             </li>
           ))}
@@ -70,29 +73,29 @@ const TakeawayOrders = () => {
       </div>
 
       {/* Right Section - Order Operations */}
-      <div className="w-2/3 p-4">
-        <h2 className="text-xl font-bold mb-4">Place Takeaway Order</h2>
-        <input className="w-full p-2 mb-2 border rounded" type="text" placeholder="Customer Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input className="w-full p-2 mb-2 border rounded" type="number" placeholder="Product Number" value={productNumber} onChange={(e) => setProductNumber(e.target.value)} />
-        <input className="w-full p-2 mb-2 border rounded" type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-        <input className="w-full p-2 mb-2 border rounded" type="number" placeholder="Order ID (0-9)" value={orderId} onChange={(e) => setOrderId(e.target.value)} />
-        <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" onClick={placeOrder}>Place Order</button>
-        {placeOrderError && <p className="text-red-500 mt-2">{placeOrderError}</p>}
-        {placeOrderMessage && <p className="text-green-500 mt-2">{placeOrderMessage}</p>}
+      <div className="right-section">
+        <h2>Place Takeaway Order</h2>
+        <input className="input-field" type="text" placeholder="Customer Name" value={name} onChange={(e) => setName(e.target.value)} />
+        <input className="input-field" type="number" placeholder="Product Number" value={productNumber} onChange={(e) => setProductNumber(e.target.value)} />
+        <input className="input-field" type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+        <input className="input-field" type="number" placeholder="Order ID (0-9)" value={orderId} onChange={(e) => setOrderId(e.target.value)} />
+        <button className="button place" onClick={placeOrder}>Place Order</button>
+        {placeOrderError && <p className="message error">{placeOrderError}</p>}
+        {placeOrderMessage && <p className="message success">{placeOrderMessage}</p>}
 
-        <h2 className="text-xl font-bold mt-6">Display All Takeaway Orders</h2>
-        <ul className="border rounded p-2">
+        <h2>Display All Takeaway Orders</h2>
+        <ul className="orders-list">
           {orders.length === 0 ? <p>No orders placed.</p> : orders.map((order, index) => (
-            <li key={index} className="border-b p-2">{`ID: ${order.orderId}, Name: ${order.name}, Product: ${order.productNumber}, Quantity: ${order.quantity}`}</li>
+            <li key={index}>{`ID: ${order.orderId}, Name: ${order.name}, Product: ${order.productNumber}, Quantity: ${order.quantity}`}</li>
           ))}
         </ul>
 
-        <h2 className="text-xl font-bold mt-6">Get Order from Warehouse</h2>
-        <input className="w-full p-2 mb-2 border rounded" type="number" placeholder="Enter Order ID" value={fetchOrderId} onChange={(e) => setFetchOrderId(e.target.value)} />
-        <button className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600" onClick={fetchOrder}>Fetch Order</button>
-        {fetchedOrder && <p className="text-blue-500 mt-2">Order ready: {JSON.stringify(fetchedOrder)}</p>}
-        {fetchOrderError && <p className="text-red-500 mt-2">{fetchOrderError}</p>}
-        {fetchOrderMessage && <p className="text-blue-500 mt-2">{fetchOrderMessage}</p>}
+        <h2>Get Order from Warehouse</h2>
+        <input className="input-field" type="number" placeholder="Enter Order ID" value={fetchOrderId} onChange={(e) => setFetchOrderId(e.target.value)} />
+        <button className="button fetch" onClick={fetchOrder}>Fetch Order</button>
+        {fetchedOrder && <p className="message info">Order ready: {JSON.stringify(fetchedOrder)}</p>}
+        {fetchOrderError && <p className="message error">{fetchOrderError}</p>}
+        {fetchOrderMessage && <p className="message info">{fetchOrderMessage}</p>}
       </div>
     </div>
   );

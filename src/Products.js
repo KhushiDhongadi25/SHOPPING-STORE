@@ -1,30 +1,28 @@
 import React from "react";
+import "./Products.css"; // Import the CSS file
 
 const products = [
-  { id: 1, name: "Sony FX30", price: 45500 },
-  { id: 2, name: "Sony FR7", price: 175000 },
-  { id: 3, name: "Canon EOS 90D", price: 289000 },
-  { id: 4, name: "Nikon D6", price: 155700 },
-  { id: 5, name: "Panasonic Lumix G10", price: 75000 },
-  { id: 6, name: "Canon EOS 250D", price: 210000 },
-  { id: 7, name: "Sony Alpha 7", price: 199999 },
-  { id: 8, name: "Nikon D750", price: 100000 },
-  { id: 9, name: "Panasonic Lumix GH5", price: 45000 },
-  { id: 10, name: "Canon EOS 5D Mark", price: 500000 },
+  { id: 1, name: "MAC Lipstick", price: 1999 },
+  { id: 2, name: "Maybelline Foundation", price: 749 },
+  { id: 3, name: "Huda Eyeshadow", price: 5499 },
+  { id: 4, name: "Lakmé Compact", price: 899 },
+  { id: 5, name: "Bobbi Eyeliner", price: 3200 },
+  { id: 6, name: "Estee Foundation", price: 4000 },
+  { id: 7, name: "L'Oréal Mascara", price: 650 },
+  { id: 8, name: "Clinique Moisturizer", price: 3800 },
+  { id: 9, name: "Dior Lip Glow", price: 3900 },
+  { id: 10, name: "Charlotte Powder", price: 4500 },
 ];
 
 function Products() {
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-semibold">Products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="products-container">
+      <h2 className="products-title">Products</h2>
+      <div className="products-grid">
         {products.map((product) => (
-          <div
-            key={product.id}
-            className="p-4 bg-white rounded-lg shadow-md"
-          >
-            <h3 className="text-xl font-bold">{product.name}</h3>
-            <p className="text-gray-600">Price: ₹{product.price}</p>
+          <div key={product.id} className="product-card">
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">Price: ₹{product.price}</p>
           </div>
         ))}
       </div>
